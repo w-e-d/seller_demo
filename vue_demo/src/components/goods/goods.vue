@@ -2,7 +2,7 @@
 	<div class="goods">
 		<div class="menu-wrapper" ref="menuWrapper">
 			<ul>
-				<li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}">                
+				<li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index)">                
 				<span class="text">
 						<span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
 					</span>
@@ -35,12 +35,14 @@
 	    		</li>
 	    	</ul>
 	    </div>
+	    <shopcart></shopcart>
 	</div>
 </template>
 
 <script type="text/ecmascript-6">
 	import BScroll from "better-scroll";
-	import axios from 'axios';
+	import axios from "axios";
+	import shopcart from "components/shopcart/shopcart";
 
 	const ERR_OK = 0;
 
@@ -76,7 +78,9 @@
 		methods: {
 			//滚动框插件实例化
 			_initBScroll() {
-				this.menuScroll = new BScroll(this.$refs.menuWrapper, {});
+				this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+					click: true
+				});
 				this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
 					probeType: 3
 				});
@@ -95,6 +99,12 @@
 					height += item.clientHeight;
 					this.listHeight.push(height);
 				}
+			},
+
+			selectMenu(index) {
+				let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+				let el = foodList[index];
+				this.foodsScroll.scrollToElement(el, 300);
 			}
 
 		},
@@ -104,12 +114,16 @@
 				for(let i = 0; i < this.listHeight.length; i++){
 					let height1 = this.listHeight[i];
 					let height2 = this.listHeight[i + 1];
-					if(!height2 || (this.scrollY > height1 && this.scrollY < height2)){
+					if(!height2 || (this.scrollY >= height1 && this.scrollY < height2)){
 						return i;
 					}
 				}
 				return 0;
 			}
+		},
+
+		components: {
+			shopcart
 		}
 	};
 </script>
@@ -165,6 +179,7 @@
 				font-weight: 700
 				.text
 					border-none()
+					font-weight: bold
 		.foods-wrapper
 			flex: 1
 			.title
