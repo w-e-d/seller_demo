@@ -136,7 +136,6 @@
 					})
 				})
 				return foods;
-				console.log(111)
 			}
 		},
 
