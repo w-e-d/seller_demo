@@ -18,7 +18,7 @@
         </router-link> 
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <router-view class="main-content" :seller="seller"></router-view>
   </div>
 </template>
 
