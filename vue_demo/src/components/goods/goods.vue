@@ -2,7 +2,7 @@
 	<div class="goods">
 		<div class="menu-wrapper" ref="menuWrapper">
 			<ul>
-				<li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click="selectMenu(index)">                
+				<li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}" @click.stop="selectMenu(index)">
 				<span class="text">
 						<span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
 					</span>
@@ -14,7 +14,8 @@
 	    		<li class="food-list food-list-hook" v-for="item in goods">
 	    			<h1 class="title">{{item.name}}</h1>
 	    			<ul>
-	    				<li class="food-item" v-for="food in item.foods">
+	    				<li class="food-item" v-for="food in item.foods" @click="goDetail">
+						<!-- <router-link replace tag="li" to="/goodsDetail"> -->
 	    					<div class="icon">
 	    						<img width="57" height="57" :src="food.icon">
 	    					</div>
@@ -33,6 +34,7 @@
 		    						<cartcontrol :food="food"></cartcontrol>
 		    					</div>
 	    					</div>
+						<!-- </router-link> -->
 	    				</li>
 	    			</ul>
 	    		</li>
@@ -110,6 +112,10 @@
 				let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
 				let el = foodList[index];
 				this.foodsScroll.scrollToElement(el, 300);
+			},
+
+			goDetail() {
+				this.$router.push('/goodsDetail');
 			}
 
 		},
@@ -212,7 +218,7 @@
 				display: flex
 				margin: 18px
 				padding-bottom: 18px
-				border-1px(rgba(7,17,27,0.1))	
+				border-1px(rgba(7,17,27,0.1))
 				&:last-child
 					border-none()
 					margin-bottom: 0
@@ -253,7 +259,5 @@
 						position: absolute
 						right: 0
 						bottom: 12px
-					
+
 </style>
-
-

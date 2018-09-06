@@ -1,12 +1,12 @@
 <template>
 	<div class="cartcontrol">
 		<transition class="decrease-wrapp" name="move">
-			<div v-show="food.count>0" @click="decreaseCart" class="decrease">
+			<div v-show="food.count>0" @click.stop="decreaseCart" class="decrease">
 				<span class="inner icon-remove_circle_outline"></span>
 			</div>
 		</transition>
 		<div v-show="food.count>0" class="count">{{food.count}}</div>
-		<div @click="addCart" class="add">
+		<div @click.stop="addCart" class="add">
 			<span class="inner icon-add_circle"></span>
 		</div>
 	</div>
@@ -18,7 +18,7 @@
 	export default{
 		data() {
 			return {
-				
+
 			}
 		},
 
@@ -56,7 +56,7 @@
 	.cartcontrol
 		display: flex
 		.decrease, .add
-			padding: 6px 
+			padding: 6px
 			.inner
 				display: block
 				line-height: 24px

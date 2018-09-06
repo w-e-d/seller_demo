@@ -7,6 +7,7 @@ import VRouter from 'vue-router';
 import goods from './components/goods/goods';
 import ratings from './components/ratings/ratings';
 import seller from './components/seller/seller';
+import goodsDetail from './components/goods/goods-detail/goods-detail';
 
 
 import 'common/stylus/index.styl';
@@ -19,7 +20,8 @@ let routes = [
 	{path:'/',redirect:'goods'},
 	{path:'/goods',component:goods},
 	{path:'/ratings',component:ratings},
-	{path:'/seller',component:seller}
+	{path:'/seller',component:seller},
+	{path:'/goodsDetail',component:goodsDetail}
 ]
 
 let router = new VRouter({
